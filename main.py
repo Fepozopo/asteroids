@@ -31,6 +31,9 @@ def main():
         # Draw the player
         player_object.draw(screen)
 
+        # Update the player
+        player_object.update(dt)
+
         # Use pygame's display.flip() method to refresh the screen.
         pygame.display.flip()
 
