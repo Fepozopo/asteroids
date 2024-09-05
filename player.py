@@ -1,4 +1,4 @@
-import pygame, constants, circleshape
+import pygame, circleshape
 
 
 

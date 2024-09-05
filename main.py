@@ -1,5 +1,5 @@
-import pygame
-import constants
+import pygame, constants, player
+
 
 
 def main():
@@ -13,6 +13,10 @@ def main():
     # Create the screen
     screen = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
 
+    # Create the player
+    player_object = player.Player(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2, constants.PLAYER_RADIUS)
+
+
     # Game loop
     running = True
     while running:
@@ -23,6 +27,10 @@ def main():
 
         # Use the screen's fill method to fill the screen with a solid "black" color.
         screen.fill((0, 0, 0))
+
+        # Draw the player
+        player_object.draw(screen)
+
         # Use pygame's display.flip() method to refresh the screen.
         pygame.display.flip()
 
@@ -30,5 +38,8 @@ def main():
         dt = clock.tick(60) / 1000
 
 
+
+
 if __name__ == "__main__":
     main()
+    
