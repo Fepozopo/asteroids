@@ -1,4 +1,8 @@
-import pygame, constants, player
+import pygame
+from constants import *
+from circleshape import CircleShape
+from player import Player
+from asteroid import Asteroid
 
 
 
@@ -11,18 +15,19 @@ def main():
     dt = 0
 
     # Create the screen
-    screen = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
-
-    # Create the player
-    player_object = player.Player(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2, constants.PLAYER_RADIUS)
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     # Create some groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
 
-    # Add the player to the groups
-    updatable.add(player_object)
-    drawable.add(player_object)
+    # Create the player
+    Player.containers = (updatable, drawable)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, PLAYER_RADIUS)
+
+    # Create the asteroids
+    Asteroid.containers = (asteroids, updatable, drawable)
 
 
     # Game loop
