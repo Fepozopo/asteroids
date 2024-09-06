@@ -50,6 +50,12 @@ def main():
         for updatables in updatable:
             updatables.update(dt)
 
+        # Check if any asteroids have collided with the player
+        for asteroid in asteroids:
+            if CircleShape.collide(player, asteroid) == True:
+                print("Game over!")
+                running = False
+
         # Draw the player
         for drawables in drawable:
             drawables.draw(screen)
