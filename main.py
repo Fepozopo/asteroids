@@ -3,6 +3,7 @@ from constants import *
 from circleshape import CircleShape
 from player import Player
 from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 
 
@@ -28,6 +29,10 @@ def main():
 
     # Create the asteroids
     Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
+
+    # Create the asteroid field
+    AsteroidField()
 
 
     # Game loop
