@@ -16,6 +16,14 @@ def main():
     # Create the player
     player_object = player.Player(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2, constants.PLAYER_RADIUS)
 
+    # Create some groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    # Add the player to the groups
+    updatable.add(player_object)
+    drawable.add(player_object)
+
 
     # Game loop
     running = True
@@ -28,11 +36,13 @@ def main():
         # Use the screen's fill method to fill the screen with a solid "black" color.
         screen.fill((0, 0, 0))
 
-        # Draw the player
-        player_object.draw(screen)
-
         # Update the player
-        player_object.update(dt)
+        for updatables in updatable:
+            updatables.update(dt)
+
+        # Draw the player
+        for drawables in drawable:
+            drawables.draw(screen)
 
         # Use pygame's display.flip() method to refresh the screen.
         pygame.display.flip()
