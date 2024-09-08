@@ -55,11 +55,16 @@ def main():
         for updatables in updatable:
             updatables.update(dt)
 
-        # Check if any asteroids have collided with the player
+        # Check if any asteroids have collided with the player or shot
         for asteroid in asteroids:
             if CircleShape.collide(player, asteroid) is True:
                 print("Game over!")
                 running = False
+            for shot in shots:
+                if CircleShape.collide(asteroid, shot) is True:
+                    # Destroy the asteroid and the shot object
+                    shot.kill()
+                    asteroid.kill()
 
         # Draw the sprites
         for drawables in drawable:
