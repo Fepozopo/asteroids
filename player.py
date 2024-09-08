@@ -5,10 +5,13 @@ from shot import Shot
 
 
 
+PLAYER_SHOOT_COOLDOWN = 0.3
+
 class Player(CircleShape):
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
         self.rotation = 0
+        self.timer = 0
 
 
     def triangle(self):
@@ -29,6 +32,14 @@ class Player(CircleShape):
 
 
     def update(self, dt):
+        # Decrease the timer by dt (time delta)
+        if self.timer > 0:
+            self.timer -= dt
+
+        # Ensure the timer doesn't go below 0
+        if self.timer < 0:
+            self.timer = 0
+
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_a]:
@@ -49,7 +60,7 @@ class Player(CircleShape):
 
         if keys[pygame.K_SPACE]:
             # Call the shoot method with the dt argument
-            self.shoot()
+            self.shoot(dt)
 
     
     def move(self, dt):
@@ -57,8 +68,9 @@ class Player(CircleShape):
         self.position += forward * dt * PLAYER_SPEED
 
 
-    def shoot(self):
-        # Create a new shot
-        shot = Shot(self.position.x, self.position.y, PLAYER_RADIUS)
-        shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOT_SPEED
-        return shot
+    def shoot(self, dt):
+        # Create a new shot if the player is allowed to
+        if self.timer == 0:
+            shot = Shot(self.position.x, self.position.y, PLAYER_RADIUS)
+            shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOT_SPEED
+            self.timer = PLAYER_SHOOT_COOLDOWN
