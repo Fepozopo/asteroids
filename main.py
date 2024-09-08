@@ -62,9 +62,8 @@ def main():
                 running = False
             for shot in shots:
                 if CircleShape.collide(asteroid, shot) is True:
-                    # Destroy the asteroid and the shot object
+                    Asteroid.split(asteroid)
                     shot.kill()
-                    asteroid.kill()
 
         # Draw the sprites
         for drawables in drawable:
