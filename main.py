@@ -4,6 +4,7 @@ from circleshape import CircleShape
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 
 
@@ -22,6 +23,7 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     # Create the player
     Player.containers = (updatable, drawable)
@@ -30,6 +32,9 @@ def main():
     # Create the asteroids
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
+
+    # Create the shots
+    Shot.containers = (shots, updatable, drawable)
 
     # Create the asteroid field
     AsteroidField()
@@ -46,17 +51,17 @@ def main():
         # Use the screen's fill method to fill the screen with a solid "black" color.
         screen.fill((0, 0, 0))
 
-        # Update the player
+        # Update the sprites
         for updatables in updatable:
             updatables.update(dt)
 
         # Check if any asteroids have collided with the player
         for asteroid in asteroids:
-            if CircleShape.collide(player, asteroid) == True:
+            if CircleShape.collide(player, asteroid) is True:
                 print("Game over!")
                 running = False
 
-        # Draw the player
+        # Draw the sprites
         for drawables in drawable:
             drawables.draw(screen)
 
